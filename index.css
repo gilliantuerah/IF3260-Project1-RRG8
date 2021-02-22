@@ -1,0 +1,29 @@
+nav, nav a{
+    text-transform: uppercase;
+    color: white;
+    font-size: 16px;
+    
+}
+nav a{
+    font-weight: bold;
+}
+
+nav{
+    padding: 20px 0px;
+    position: fixed;
+    width: 100%;
+}
+
+
+nav a.hover{
+    color: #475CFD;
+}
+
+nav h5{
+    font-weight: bold;
+
+}
+
+.isiWeb{
+    padding-top: 100px;
+}

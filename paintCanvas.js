@@ -7,7 +7,7 @@ var shapes = [];
 
 /* Current states of things */
 var current = {
-    /* Bakal ada segitiga, persegi, dan polygon */
+    /* Bakal ada garis, persegi, dan polygon */
     
 }
 
