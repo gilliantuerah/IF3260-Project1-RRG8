@@ -1,5 +1,20 @@
+var coorX = 0;
+var coorY = 0;
 
-var makeGaris = function(garisVertices){
+function getMouseCoor(event){
+    coorX = (event.offsetX / canvas.clientWidth) * 2 - 1
+    coorY = (1 - (event.offsetY / canvas.clientHeight)) * 2 - 1
+}
+function hexToRgb(hex) {
+    var hasil = []
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    r= parseInt(result[1], 16);
+    g= parseInt(result[2], 16);
+    b= parseInt(result[3], 16);
+    hasil.push(r,g,b);
+    return result ? hasil : null;
+}
+function makeGaris(garisVertices, numberOfLine){
 
     var garisVertexBufferObject = gl.createBuffer();
     //binding buffer yang baru dibuat ke active buffer
@@ -36,38 +51,57 @@ var makeGaris = function(garisVertices){
     
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     // Draw the triangle
-    gl.drawArrays(gl.LINES, 0, 6);
+    gl.drawArrays(gl.LINES, 0, numberOfLine);
 
 }
 
 var segitigaBtn = document.getElementById("garisBtn");
-var coorGaris=[];
+var canvass = document.getElementById('game-surface');
 
-segitigaBtn.addEventListener("click", function(){
-    var x1 = document.getElementById("inputx1Garis").value;
-    var y1 = document.getElementById("inputy1Garis").value;
-    var x2 = document.getElementById("inputx2Garis").value;
-    var y2 = document.getElementById("inputy2Garis").value;
-    var r = document.getElementById("inputR").value;
-    var g = document.getElementById("inputG").value;
-    var b = document.getElementById("inputB").value;
-    coorGaris.push(parseFloat(x1));
-    coorGaris.push(parseFloat(y1));
+// segitigaBtn.addEventListener("click", function(){
+//     var x1 = document.getElementById("inputx1Garis").value;
+//     var y1 = document.getElementById("inputy1Garis").value;
+//     var x2 = document.getElementById("inputx2Garis").value;
+//     var y2 = document.getElementById("inputy2Garis").value;
+//     var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+//     coorGaris.push(parseFloat(x1));
+//     coorGaris.push(parseFloat(y1));
+//     coorGaris.push(0);
+//     coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
+//     coorGaris.push(parseFloat(x2));
+//     coorGaris.push(parseFloat(y2));
+//     coorGaris.push(0);
+//     coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
+
+
+//     console.log(coorGaris);
+//     console.log(shapeColor[0]);
+//     makeGaris(coorGaris)
+// });
+
+
+canvass.addEventListener("click", function(e){
+    var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+    getMouseCoor(e);
+    console.log(coorX);
+    console.log(coorY);
+    coorGaris.push(coorX);
+    coorGaris.push(coorY);
     coorGaris.push(0);
-    coorGaris.push(parseFloat(r));
-    coorGaris.push(parseFloat(g));
-    coorGaris.push(parseFloat(b));
-    coorGaris.push(parseFloat(x2));
-    coorGaris.push(parseFloat(y2));
-    coorGaris.push(0);
-    coorGaris.push(parseFloat(r));
-    coorGaris.push(parseFloat(g));
-    coorGaris.push(parseFloat(b));
+    coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
 
-    console.log(coorGaris);
+    if(coorGaris.length%12==0){
+        makeGaris(coorGaris,coorGaris.length/6)
+    }
+    console.log(coorGaris)
+    console.log(shapeColor)
+})
+function clearGaris(){
+    if(coorGaris.length!==0){
+        coorGaris=[];
+    }
+}
 
-    makeGaris(coorGaris)
-});
 
 /*
         [// X, Y          R, G, B

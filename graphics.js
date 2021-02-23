@@ -5,8 +5,10 @@ var vertexShader;
 var fragmentShader;
 var vertexShaderText;
 var fragmentShaderText;
+var coorGaris=[];
 
 function initWebGL() {
+    clearGaris();
     canvas = document.getElementById('game-surface');
 
     gl = canvas.getContext("webgl");
@@ -47,6 +49,8 @@ function initWebGL() {
 
     gl.useProgram(program);
 }
+
+
 
 window.onload = initWebGL();
 
