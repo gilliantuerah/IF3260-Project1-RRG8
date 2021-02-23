@@ -64,7 +64,7 @@ function makeGaris(garisVertices, numberOfLine){
 }
 
 
-var canvass = document.getElementById('game-surface');
+
 
 // segitigaBtn.addEventListener("click", function(){
 //     var x1 = document.getElementById("inputx1Garis").value;
@@ -86,31 +86,7 @@ var canvass = document.getElementById('game-surface');
 //     console.log(shapeColor[0]);
 //     makeGaris(coorGaris)
 // });
-var drawBtn = document.getElementById("drawBtn");
-drawBtn.addEventListener("click", function(){
-    var shape = document.getElementById("shapeOption").value;
-    if(shape==="garis"){
-        canvass.addEventListener("click", function(e){
-            var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
-            
-        
-            getMouseCoor(e);
-            console.log(coorX);
-            console.log(coorY);
-            coorGaris.push(coorX);
-            coorGaris.push(coorY);
-            coorGaris.push(0);
-            coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
-        
-            if(coorGaris.length%12==0){
-                makeGaris(coorGaris,coorGaris.length/6)
-            }
-            console.log(coorGaris)
-            console.log(shapeColor)
-            console.log(shape)
-        })
-    }
-});
+
 
 
 
