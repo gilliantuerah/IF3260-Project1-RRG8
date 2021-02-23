@@ -41,8 +41,35 @@ var makeGaris = function(garisVertices){
 }
 
 var segitigaBtn = document.getElementById("garisBtn");
+var coorGaris=[];
+
 segitigaBtn.addEventListener("click", function(){
-    makeGaris(
+    var x1 = document.getElementById("inputx1Garis").value;
+    var y1 = document.getElementById("inputy1Garis").value;
+    var x2 = document.getElementById("inputx2Garis").value;
+    var y2 = document.getElementById("inputy2Garis").value;
+    var r = document.getElementById("inputR").value;
+    var g = document.getElementById("inputG").value;
+    var b = document.getElementById("inputB").value;
+    coorGaris.push(parseFloat(x1));
+    coorGaris.push(parseFloat(y1));
+    coorGaris.push(0);
+    coorGaris.push(parseFloat(r));
+    coorGaris.push(parseFloat(g));
+    coorGaris.push(parseFloat(b));
+    coorGaris.push(parseFloat(x2));
+    coorGaris.push(parseFloat(y2));
+    coorGaris.push(0);
+    coorGaris.push(parseFloat(r));
+    coorGaris.push(parseFloat(g));
+    coorGaris.push(parseFloat(b));
+
+    console.log(coorGaris);
+
+    makeGaris(coorGaris)
+});
+
+/*
         [// X, Y          R, G, B
             -0.7,-0.1,0,  0.0,0.0,0.0, 
             -0.3,0.6,0,   0.0,0.0,0.0,
@@ -53,5 +80,4 @@ segitigaBtn.addEventListener("click", function(){
             0.3,-0.3,0,   0.0,0.0,0.0,
             0.7,0.6,0,    0.0,0.0,0.0
         ]
-    )
-});
+        */

@@ -26,12 +26,53 @@
             <a class="nav-link" href="./help.html">help</a>
         </nav>
         <div class="isiWeb">
-            <canvas id="game-surface" width="800" height="600">
-                Helloo kamu cupu
-            </canvas>
+            <div class="canvasContainer">
+                <canvas id="game-surface" width="800" height="600"></canvas>
+            </div>
+            
             <br/> 
-            <i>heloo aku di atasmu!</i>
-            <button type="button" class="btn btn-primary" id="garisBtn">Garis</button>
+            <form class="inputFormGaris">
+                <div class="form-group col-md-9">
+                  <label for="inputx1Garis">x1</label>
+                  <input type="text" class="form-control" id="inputx1Garis" aria-describedby="input x1 untuk garis" placeholder="co: 1.0 atau 2">
+                  <small class="form-text text-muted">Masukkan nilai x1 dari titik 1</small>
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="inputy1Garis">y1</label>
+                    <input type="text" class="form-control" id="inputy1Garis" aria-describedby="input y1 untuk garis" placeholder="co: 1.0 atau 2">
+                    <small class="form-text text-muted">Masukkan nilai y1 dari titik 1</small>
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="inputx2Garis">x2</label>
+                    <input type="text" class="form-control" id="inputx2Garis" aria-describedby="input x2 untuk garis" placeholder="co: 1.0 atau 2">
+                    <small class="form-text text-muted">Masukkan nilai x2 dari titik 2</small>
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="inputy2Garis">y2</label>
+                    <input type="text" class="form-control" id="inputy2Garis" aria-describedby="input y2 untuk garis" placeholder="co: 1.0 atau 2">
+                    <small class="form-text text-muted">Masukkan nilai y2 dari titik 2</small>
+                </div>
+            </form>
+            <form class="inputFormGarisRGB">
+                <div class="form-group col-md-9">
+                  <label for="inputR">R</label>
+                  <input type="text" class="form-control" id="inputR" placeholder="int dari 0 sampai 255">
+                  <small class="form-text text-muted">Masukkan nilai Red garis</small>
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="inputGs">G</label>
+                    <input type="text" class="form-control" id="inputG" placeholder="int dari 0 sampai 255">
+                    <small class="form-text text-muted">Masukkan nilai Green garis</small>
+                </div>
+                <div class="form-group col-md-9">
+                    <label for="inputB">B</label>
+                    <input type="text" class="form-control" id="inputB" placeholder="int dari 0 sampai 255">
+                    <small class="form-text text-muted">Masukkan nilai Blue garis</small>
+                </div>
+            </form>
+            <button type="button" class="btn btn-primary" id="garisBtn">Draw Garis</button>
+
+            <br/>
             <button type="button" class="btn btn-primary" id="segitigaBtn">Segitiga</button>
             <button type="button" class="btn btn-primary" id="persegiBtn">Persegi</button>
             <button type="button" class="btn btn-primary" id="clearBtn">Clear</button>

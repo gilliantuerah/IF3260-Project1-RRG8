@@ -27,3 +27,22 @@ nav h5{
 .isiWeb{
     padding-top: 100px;
 }
+
+.inputFormGaris{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+}
+.inputFormGarisRGB{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+}
+
+#garisBtn{
+    width: 200px;
+    margin: 25px;
+}
+.canvasContainer{
+    text-align: center;
+}
