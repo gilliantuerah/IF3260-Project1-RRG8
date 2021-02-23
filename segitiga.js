@@ -59,13 +59,3 @@ var makeSegitiga = function(triangleVertices){
 };
 // }
 
-var segitigaBtn = document.getElementById("segitigaBtn");
-segitigaBtn.addEventListener("click", function(){
-    makeSegitiga(
-        [// X, Y          R, G, B
-            0,0.5,     1.0, 1.0, 0.0,
-            -0.5,-0.5,   0.7, 0.0, 1.0,
-            0.5,-0.5,    0.1, 1.0, 0.6,
-        ]    
-    );
-});

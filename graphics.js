@@ -6,9 +6,25 @@ var fragmentShader;
 var vertexShaderText;
 var fragmentShaderText;
 var coorGaris=[];
+var coorSquare=[];
 
+function getMouseCoor(event){
+    coorX = (event.offsetX / canvas.clientWidth) * 2 - 1
+    coorY = (1 - (event.offsetY / canvas.clientHeight)) * 2 - 1
+}
+
+function hexToRgb(hex) {
+    var hasil = []
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    r= parseInt(result[1], 16);
+    g= parseInt(result[2], 16);
+    b= parseInt(result[3], 16);
+    hasil.push(r,g,b);
+    return result ? hasil : null;
+}
 function initWebGL() {
     clearGaris();
+    clearSquare();
     canvas = document.getElementById('game-surface');
 
     gl = canvas.getContext("webgl");
@@ -53,11 +69,10 @@ function initWebGL() {
 var drawBtn = document.getElementById("drawBtn");
 drawBtn.addEventListener("click", function(){
     var shape = document.getElementById("shapeOption").value;
+    console.log(shape)
     if(shape==="garis"){
         canvas.addEventListener("click", function(e){
             var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
-            
-        
             getMouseCoor(e);
             console.log(coorX);
             console.log(coorY);
@@ -74,6 +89,26 @@ drawBtn.addEventListener("click", function(){
             console.log(shape)
         })
     }
+    if(shape==="kotak"){
+        canvas.addEventListener("click", function(e){
+            var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+            getMouseCoor(e);
+            console.log(coorX);
+            console.log(coorY);
+            coorSquare.push(coorX);
+            coorSquare.push(coorY);
+            coorSquare.push(shapeColor[0],shapeColor[1],shapeColor[2]);
+        
+            if(coorSquare.length%20==0){
+                makePersegi(coorSquare,coorSquare.length/5)
+            }
+            console.log(coorSquare)
+            console.log(shapeColor)
+            console.log(shape)
+        })
+    
+    }
+    
 });
 
 

@@ -1,4 +1,10 @@
-var makePersegi = function(squareVertices) {
+function clearSquare(){
+    if(coorSquare.length!==0){
+        coorSquare=[];
+    }
+}
+
+var makePersegi = function(squareVertices, numberOfVert) {
     var bufferId = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(squareVertices), gl.STATIC_DRAW);
@@ -26,17 +32,17 @@ var makePersegi = function(squareVertices) {
     gl.enableVertexAttribArray(colorAttributeLocation);
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, numberOfVert);
 }
 
-var persegiBtn = document.getElementById("persegiBtn");
-persegiBtn.addEventListener("click", function(){
-    makePersegi(
-        [// X, Y          R, G, B
-            -0.5,-0.5,  0.0, 1.0, 1.0,
-            -0.5,0.5,   0.0, 1.0, 1.0,
-            0.5,0.5,    0.0, 1.0, 1.0,
-            0.5,-0.5,   0.0, 1.0, 1,0
-        ]    
-    );
-});
+// var persegiBtn = document.getElementById("persegiBtn");
+// persegiBtn.addEventListener("click", function(){
+//     makePersegi(
+//         [// X, Y          R, G, B
+//             -0.5,-0.5,  0.0, 1.0, 1.0,
+//             -0.5,0.5,   0.0, 1.0, 1.0,
+//             0.5,0.5,    0.0, 1.0, 1.0,
+//             0.5,-0.5,   0.0, 1.0, 1,0
+//         ]    
+//     );
+// });

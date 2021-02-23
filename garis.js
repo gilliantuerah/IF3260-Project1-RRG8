@@ -7,20 +7,6 @@ function clearGaris(){
     }
 }
 
-function getMouseCoor(event){
-    coorX = (event.offsetX / canvas.clientWidth) * 2 - 1
-    coorY = (1 - (event.offsetY / canvas.clientHeight)) * 2 - 1
-}
-
-function hexToRgb(hex) {
-    var hasil = []
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    r= parseInt(result[1], 16);
-    g= parseInt(result[2], 16);
-    b= parseInt(result[3], 16);
-    hasil.push(r,g,b);
-    return result ? hasil : null;
-}
 
 function makeGaris(garisVertices, numberOfLine){
 
@@ -55,10 +41,10 @@ function makeGaris(garisVertices, numberOfLine){
     gl.enableVertexAttribArray(coord);
     gl.enableVertexAttribArray(colorAttributeLocation);
 
-    /*============ Drawing the triangle =============*/
+    /*============ Drawing the line =============*/
     
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    // Draw the triangle
+    // Draw the line
     gl.drawArrays(gl.LINES, 0, numberOfLine);
 
 }
