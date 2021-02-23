@@ -1,10 +1,17 @@
 var coorX = 0;
 var coorY = 0;
 
+function clearGaris(){
+    if(coorGaris.length!==0){
+        coorGaris=[];
+    }
+}
+
 function getMouseCoor(event){
     coorX = (event.offsetX / canvas.clientWidth) * 2 - 1
     coorY = (1 - (event.offsetY / canvas.clientHeight)) * 2 - 1
 }
+
 function hexToRgb(hex) {
     var hasil = []
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -14,6 +21,7 @@ function hexToRgb(hex) {
     hasil.push(r,g,b);
     return result ? hasil : null;
 }
+
 function makeGaris(garisVertices, numberOfLine){
 
     var garisVertexBufferObject = gl.createBuffer();
@@ -55,7 +63,7 @@ function makeGaris(garisVertices, numberOfLine){
 
 }
 
-var segitigaBtn = document.getElementById("garisBtn");
+
 var canvass = document.getElementById('game-surface');
 
 // segitigaBtn.addEventListener("click", function(){
@@ -78,29 +86,32 @@ var canvass = document.getElementById('game-surface');
 //     console.log(shapeColor[0]);
 //     makeGaris(coorGaris)
 // });
-
-
-canvass.addEventListener("click", function(e){
-    var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
-    getMouseCoor(e);
-    console.log(coorX);
-    console.log(coorY);
-    coorGaris.push(coorX);
-    coorGaris.push(coorY);
-    coorGaris.push(0);
-    coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
-
-    if(coorGaris.length%12==0){
-        makeGaris(coorGaris,coorGaris.length/6)
+var drawBtn = document.getElementById("drawBtn");
+drawBtn.addEventListener("click", function(){
+    var shape = document.getElementById("shapeOption").value;
+    if(shape==="garis"){
+        canvass.addEventListener("click", function(e){
+            var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+            
+        
+            getMouseCoor(e);
+            console.log(coorX);
+            console.log(coorY);
+            coorGaris.push(coorX);
+            coorGaris.push(coorY);
+            coorGaris.push(0);
+            coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
+        
+            if(coorGaris.length%12==0){
+                makeGaris(coorGaris,coorGaris.length/6)
+            }
+            console.log(coorGaris)
+            console.log(shapeColor)
+            console.log(shape)
+        })
     }
-    console.log(coorGaris)
-    console.log(shapeColor)
-})
-function clearGaris(){
-    if(coorGaris.length!==0){
-        coorGaris=[];
-    }
-}
+});
+
 
 
 /*

@@ -43,10 +43,15 @@ nav h5{
     padding: 10px;
 }
 
-#garisBtn{
-    width: 200px;
-    margin: 25px;
-}
+
 .canvasContainer{
     text-align: center;
+}
+.inputShape{
+    padding: 20px;
+}
+
+.buttonContainer{
+    width: 200px;
+    margin: 25px;
 }
