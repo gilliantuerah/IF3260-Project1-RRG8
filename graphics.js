@@ -8,6 +8,7 @@ var fragmentShaderText;
 var coorGaris=[];
 var idxInitGaris=0;
 var coorSquare=[];
+var coorPoly =[];
 
 function getMouseCoor(event){
     coorX = (event.offsetX / canvas.clientWidth) * 2 - 1
@@ -214,6 +215,27 @@ drawBtn.addEventListener("click", function(){
             console.log(shape)
         })
     
+    }
+
+    if(shape==="polygon"){
+        canvas.addEventListener("click", function(e){
+            var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+            getMouseCoor(e);
+            console.log(coorX);
+            console.log(coorY);
+            coorPoly.push(coorX);
+            coorPoly.push(coorY);
+            coorPoly.push(shapeColor[0],shapeColor[1],shapeColor[2]); //RGB
+
+            //Jangan dipanggil ketika baru dapat dua titik
+            //Setelah titik ketiga, shape harus selalu diupdate dan draw dibuat ulang dengan array yang sama
+            if((coorPoly.length > 10) && (coorSquare.length%5==0)){
+                makePoligon(coorPoly,(coorPoly.length)/5);
+            }
+            console.log(coorPoly)
+            console.log(shapeColor)
+            console.log(shape)
+        })
     }
     
 });
