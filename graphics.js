@@ -99,6 +99,16 @@ drawBtn.addEventListener("click", function(){
             coorSquare.push(coorX);
             coorSquare.push(coorY);
             coorSquare.push(shapeColor[0],shapeColor[1],shapeColor[2]);
+
+            // Bikin langsung dari size yang udah dimasukin
+            var size = document.getElementById("persegiSize").value;
+            console.log(size);
+            var convertedSize = (size / Math.min(canvas.clientHeight, canvas.clientWidth)) * 2;
+            console.log(convertedSize);
+
+            coorSquare.push(coorX + convertedSize, coorY, shapeColor[0],shapeColor[1],shapeColor[2])
+            coorSquare.push(coorX + convertedSize, coorY + convertedSize, shapeColor[0],shapeColor[1],shapeColor[2])
+            coorSquare.push(coorX, coorY + convertedSize, shapeColor[0],shapeColor[1],shapeColor[2])
         
             if(coorSquare.length%20==0){
                 makePersegi(coorSquare,coorSquare.length/5)
@@ -138,3 +148,15 @@ window.onload = initWebGL();
 
 var clearBtn = document.getElementById("clearBtn");
 clearBtn.addEventListener("click",initWebGL);
+
+var persegiSize = document.getElementById("persegiForm");
+persegiSize.style.display = "none";
+
+var shapeOption = document.getElementById("shapeOption");
+shapeOption.addEventListener("change", () => {
+    if (shapeOption.value == "kotak"){
+        persegiSize.style.display = "block";
+    } else {
+        persegiSize.style.display = "none";
+    }
+})
