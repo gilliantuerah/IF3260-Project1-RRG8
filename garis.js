@@ -19,7 +19,8 @@ function makeGaris(garisVertices, numberOfLine){
     // Get the attribute location
     var coord = gl.getAttribLocation(program, "vPosition");
     var colorAttributeLocation = gl.getAttribLocation(program, 'vertColor');
-
+    var transform = gl.getUniformLocation(program, "transformMat");
+    var res = gl.getUniformLocation(program, "resolution");
     // Point an attribute to the currently bound VBO
     gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 6 * Float32Array.BYTES_PER_ELEMENT, 0); // Ada ininya kayak segitiga biar bisa ganti warna?
     gl.vertexAttribPointer(
@@ -36,6 +37,8 @@ function makeGaris(garisVertices, numberOfLine){
         //0ffset from the beginning of a single vertex to this attribute
         3 * Float32Array.BYTES_PER_ELEMENT //skip X and Y
     );
+    gl.uniformMatrix4fv(transform, false, new Float32Array(identityMatrix));
+    gl.uniform2fv(res, [canvas.clientWidth, canvas.clientHeight]);
 
     // Enable the attribute
     gl.enableVertexAttribArray(coord);

@@ -11,6 +11,8 @@ var makePersegi = function(squareVertices, numberOfVert) {
 
     var vPosition = gl.getAttribLocation(program, "vPosition");
     var colorAttributeLocation = gl.getAttribLocation(program, 'vertColor');
+    var transform = gl.getUniformLocation(program, "transformMat");
+    var res = gl.getUniformLocation(program, "resolution");
 
     gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
     gl.vertexAttribPointer(
@@ -27,6 +29,9 @@ var makePersegi = function(squareVertices, numberOfVert) {
         //0ffset from the beginning of a single vertex to this attribute
         2 * Float32Array.BYTES_PER_ELEMENT //skip X and Y
     );
+
+    gl.uniformMatrix4fv(transform, false, new Float32Array(identityMatrix));
+    gl.uniform2fv(res, [canvas.clientWidth, canvas.clientHeight]);
 
     gl.enableVertexAttribArray(vPosition);
     gl.enableVertexAttribArray(colorAttributeLocation);

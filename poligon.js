@@ -14,10 +14,15 @@ function makePoligon(polygonVertices, numOfVertices) {
     //Ambil koordinat titik dan angka
     var loc = gl.getAttribLocation(program, "vPosition");
     var colLoc = gl.getAttribLocation(program, "vertcolor");
+    var transform = gl.getUniformLocation(program, "transformMat");
+    var res = gl.getUniformLocation(program, "resolution");
 
     // Masukkan rule atribut
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
     gl.vertexAttribPointer(loc, 3, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
+
+    gl.uniformMatrix4fv(transform, false, new Float32Array(identityMatrix));
+    gl.uniform2fv(res, [canvas.clientWidth, canvas.clientHeight]);
 
     // Masukkan atribut
     gl.enableVertexAttribArray(loc);
