@@ -82,32 +82,33 @@ function openFromTXT() {
     // makeGaris();
     // makePersegi();
     // makePoligon(coorPoly, (coorPoly.length)/5);
+    console.log("Isinya coorpoly");
     console.log(coorPoly);
 
 }
 
-let inputFileBtn = document.querySelector('input');
-// let textarea = document.querySelector('textarea');
+// let inputFileBtn = document.querySelector('input');
+// // let textarea = document.querySelector('textarea');
 
-inputFileBtn.addEventListener('change', () => {
-    text = [];
-    let files = input.files;
+// inputFileBtn.addEventListener('change', () => {
+//     text = [];
+//     let files = input.files;
  
-    if(files.length == 0) return;
+//     if(files.length == 0) return;
  
-    const file = files[0];
+//     const file = files[0];
  
-    let reader = new FileReader();
+//     let reader = new FileReader();
  
-    reader.onload = (e) => {
-        const file = e.target.result;
-        const lines = file.split(/\r\n|\n/);
-        text.push(file);
-        console.log(text)
-    };
+//     reader.onload = (e) => {
+//         const file = e.target.result;
+//         const lines = file.split(/\r\n|\n/);
+//         text.push(file);
+//         console.log(text)
+//     };
  
-    reader.onerror = (e) => alert(e.target.error.name);
+//     reader.onerror = (e) => alert(e.target.error.name);
  
-    reader.readAsText(file); 
+//     reader.readAsText(file); 
     
-});
+// });

@@ -19,7 +19,7 @@ function makePoligon(polygonVertices, numOfVertices) {
 
     // Masukkan rule atribut
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
-    gl.vertexAttribPointer(loc, 3, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0);
+    gl.vertexAttribPointer(colLoc, 3, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 2 * Float32Array.BYTES_PER_ELEMENT);
 
     gl.uniformMatrix4fv(transform, false, new Float32Array(identityMatrix));
     gl.uniform2fv(res, [canvas.clientWidth, canvas.clientHeight]);
