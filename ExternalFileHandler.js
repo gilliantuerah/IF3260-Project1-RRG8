@@ -63,7 +63,7 @@ loadFile.addEventListener("change", function() {
                             coorSquare = []; //kalo ketemu garis, kosongin dulu
                         }
                         if(lines[i] === "kotak"){
-                            coorSquare = [];
+                            coorSquare = []; //kalo ketemu kotak, kosongin dulu
                         }
                         if(lines[i] === "polygon"){
                             break;
