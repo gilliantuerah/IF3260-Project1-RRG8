@@ -56,6 +56,8 @@ function initWebGL() {
     canvas.removeEventListener("click", drawKotak);
     canvas.removeEventListener("click", drawPoligon);
     squareCount = 0;
+    document.getElementById("persegiForm").style.display = "none";
+    document.getElementById("persegiEnlarge").style.display = "none";
 
     gl = canvas.getContext("webgl");
     if (!gl){
