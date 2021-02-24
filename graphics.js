@@ -145,7 +145,6 @@ function drawKotak(e){
 
         if(coorSquare.length%20==0){
             makePersegi(coorSquare,coorSquare.length/5)
-            coorSquare = [];
             document.getElementById("persegiEnlarge").style.display = "block";
         }
         console.log(coorSquare)
