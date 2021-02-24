@@ -250,11 +250,63 @@ editBtn.addEventListener("click", function(){
             }
             
         }
+        else if (editMode === 1 && shape==="polygon"){
+            getMouseCoor(e);
+            idxEdit++;
+
+            //if idxEdit ganjil -> pilih titik dari coorPoly yg mau diedit
+            if(idxEdit%2==1){
+                for(var j=0;j<coorPoly.length;j+=5){
+                    error=distanceTwoPoint(coorX,coorY,coorPoly[j],coorPoly[j+1])
+                    //galat = 3.0
+                    if(error<3.0){
+                        if(error<minDist){
+                            minDist=error;
+                            //simpen current position to edit
+                            editCoordIdx = j;
+                        }
+                    }
+                }
+            }else{ //if idxEdit genap -> pilih titik'
+                if(editCoordIdx===-1){
+                    //titik yang dipilih tidak masuk range
+                    console.log("Tidak ada titik yang memenuhi")
+                }else{
+                    //ganti koordinat
+                    coorPoly[editCoordIdx]=coorX;
+                    coorPoly[editCoordIdx+1]=coorY;
+                    //gambar ulang poligon
+                    makePoligon(coorPoly,(coorPoly.length)/5);
+                }
+                editCoordIdx=-1;
+                minDist=5;
+            }
+        }
     
     })
     
     
 })
+
+//Ganti Warna Polygon
+var gantiWarnaPolyBtn = document.getElementById("gantiWarnaPolyBtn");
+
+gantiWarnaPolyBtn.addEventListener("click", function() {
+    var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+    for (i = 0; i < coorPoly.length; i++){
+        if(i%5 == 2){ //R
+            coorPoly[i] = shapeColor[0];
+        }
+        if(i%5 == 3){ //G
+            coorPoly[i] = shapeColor[1];
+        }
+        if(i%5 == 4){ //B
+            coorPoly[i] = shapeColor[2];
+        }
+    }
+    makePoligon(coorPoly, (coorPoly.length)/5);
+    console.log("Ganti warna");
+});
 
 window.onload = initWebGL();
 
