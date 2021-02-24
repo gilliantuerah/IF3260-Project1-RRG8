@@ -176,6 +176,20 @@ function drawPoligon(e){
     }
 }
 
+function drawShape(e,shape){
+    if(shape==="garis"){
+        drawGaris(e); //Dipisah biar bisa diremove pas clear
+    }
+
+    if(shape==="kotak"){
+        drawKotak(e);
+    }
+
+    if(shape==="polygon"){
+        drawPoligon(e);
+    } 
+}
+
 var drawBtn = document.getElementById("drawBtn");
 // draw mode
 drawBtn.addEventListener("click", function(){
@@ -185,17 +199,18 @@ drawBtn.addEventListener("click", function(){
     clear()
     var shape = document.getElementById("shapeOption").value;
     console.log(shape)
-    if(shape==="garis"){
-        canvas.addEventListener("click", drawGaris); //Dipisah biar bisa diremove pas clear
-    }
+    // if(shape==="garis"){
+    //     canvas.addEventListener("click", drawGaris); //Dipisah biar bisa diremove pas clear
+    // }
 
-    if(shape==="kotak"){
-        canvas.addEventListener("click", drawKotak);
-    }
+    // if(shape==="kotak"){
+    //     canvas.addEventListener("click", drawKotak);
+    // }
 
-    if(shape==="polygon"){
-        canvas.addEventListener("click", drawPoligon);
-    }    
+    // if(shape==="polygon"){
+    //     canvas.addEventListener("click", drawPoligon);
+    // }   
+    canvas.addEventListener("click", e=>drawShape(e,shape)); 
 });
 
 // editMode
