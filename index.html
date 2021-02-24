@@ -60,6 +60,16 @@
                 </div>
             </div>
 
+            <div id="polygonEnlarge" class="input-group inputShape mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="polygonSize">Enlarge Polygon (x times)</label>
+                </div>
+                <input type="number" id="enlargeVal" min="0" value="1" step="0.1">
+                <div class="buttonContainer">
+                    <button type="button" class="btn btn-primary" id="enlargeBtn">Enlarge</button>
+                </div>
+            </div>
+
             <form class="inputFormGarisRGB">
                 <div class="form-group col-md-9">
                   <label>Warna Shape</label>
@@ -77,6 +87,8 @@
             <div class="buttonContainer">
                 <button type="button" class="btn btn-success" id="drawBtn">Start Drawing</button>
                 <button type="button" class="btn btn-primary" id="clearBtn">Clear</button>
+                <input type="file">
+                <textarea cols="30" rows="20"></textarea>
             </div>
 
             <div class="yourShape" id="yourShape">
@@ -89,11 +101,13 @@
         <br/>
         
         <!-- <script src="./paintCanvas.js"></script> -->
+        <script src="./script.js"></script>
         <script src="./segitiga.js"></script>
         <script src="./garis.js"></script>
         <script src="./persegi.js"></script>
         <script src="./poligon.js"></script>
         <script src="./graphics.js"></script>
+        <script src="./ExternalFileHandler.js"></script>
         
         
         <!-- <script>
