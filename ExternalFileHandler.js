@@ -2,8 +2,18 @@ var saveFile = document.getElementById("saveBtn");
 saveFile.addEventListener("click", function() {
     // Create text document — only saves 1st link in text doc
     var textDoc = document.createElement('a');
-    var stringNtar = 'data:attachment/text,' + encodeURI(coorPoly.join('\n')) + '\ngaris' + encodeURI(coorPoly.join('\n')) + '\nkotak' + encodeURI(coorPoly.join('\n')) + '\npolygon');
-    textDoc.href = 'data:attachment/text,' + encodeURI(coorPoly.join('\n')) + '\npolygon');
+    var stringFinal = '';
+    // var stringNtar = 'data:attachment/text,' + encodeURI(coorPoly.join('\n')) + '\ngaris\n' + encodeURI(coorPoly.join('\n')) + '\nkotak' + encodeURI(coorPoly.join('\n')) + '\npolygon');
+    if(coorGaris.length != 0){
+        stringFinal += encodeURI(coorGaris.join('\n')) + '\ngaris\n';
+    }
+    if(coorSquare.length != 0){
+        stringFinal += encodeURI(coorSquare.join('\n')) + '\nkotak\n';
+    }
+    if(coorPoly.length != 0){
+        stringFinal += encodeURI(coorPoly.join('\n')) + '\npolygon\n';
+    }
+    textDoc.href = 'data:attachment/text,' + stringFinal;
     textDoc.target = '_blank';
     textDoc.download = 'myFile.txt';
     textDoc.click();
