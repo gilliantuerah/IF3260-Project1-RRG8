@@ -15,6 +15,7 @@ var identityMatrix = [
     0.0, 0.0, 1.0, 0.0,
     0.0, 0.0, 0.0, 1.0
 ];
+var squareCount;
 //boolean mode
 var editMode=0; //false
 var drawMode=0; //false
@@ -47,9 +48,6 @@ function clear(){
         element.firstChild.remove()
     }
     idxInitGaris=0;
-
-    document.getElementById("persegiForm").style.display = "none";
-    document.getElementById("persegiEnlarge").style.display = "none";
 }
 function initWebGL() {
     clear();
@@ -57,6 +55,7 @@ function initWebGL() {
     canvas.removeEventListener("click", drawGaris);
     canvas.removeEventListener("click", drawKotak);
     canvas.removeEventListener("click", drawPoligon);
+    squareCount = 0;
 
     gl = canvas.getContext("webgl");
     if (!gl){
@@ -146,10 +145,10 @@ function drawKotak(e){
         if(coorSquare.length%20==0){
             makePersegi(coorSquare,coorSquare.length/5)
             document.getElementById("persegiEnlarge").style.display = "block";
+            squareCount++;
         }
         console.log(coorSquare)
         console.log(shapeColor)
-        console.log(shape)
     }
     
 }
@@ -279,5 +278,8 @@ enlargeBtn.addEventListener("click", () => {
     var transform = gl.getUniformLocation(program, "transformMat");
     gl.uniformMatrix4fv(transform, false, new Float32Array(scaleMat));    
     gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+
+    for (var i = 0; i < squareCount; i++){
+        gl.drawArrays(gl.TRIANGLE_FAN, i * 4, 4);
+    }
 });
