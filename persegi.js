@@ -37,7 +37,8 @@ var makePersegi = function(squareVertices, numberOfVert) {
     gl.enableVertexAttribArray(colorAttributeLocation);
 
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLE_FAN, 0, numberOfVert);
+    for (var i = 0; i < numberOfVert/4; i++)
+    gl.drawArrays(gl.TRIANGLE_FAN, i * 4, 4);
 }
 
 // var persegiBtn = document.getElementById("persegiBtn");
