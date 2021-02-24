@@ -40,15 +40,3 @@ var makePersegi = function(squareVertices, numberOfVert) {
     for (var i = 0; i < numberOfVert/4; i++)
     gl.drawArrays(gl.TRIANGLE_FAN, i * 4, 4);
 }
-
-// var persegiBtn = document.getElementById("persegiBtn");
-// persegiBtn.addEventListener("click", function(){
-//     makePersegi(
-//         [// X, Y          R, G, B
-//             -0.5,-0.5,  0.0, 1.0, 1.0,
-//             -0.5,0.5,   0.0, 1.0, 1.0,
-//             0.5,0.5,    0.0, 1.0, 1.0,
-//             0.5,-0.5,   0.0, 1.0, 1,0
-//         ]    
-//     );
-// });
