@@ -36,12 +36,14 @@ loadFile.addEventListener("change", function() {
                         if(lines[i] === "garis"){
                             break;
                         }
-                        coorGaris = lines[i];
+                        console.log(lines[i]);
+                        coorGaris.push(parseFloat(lines[i]));
                     }
+                    console.log(coorGaris);
                     makeGaris(coorGaris, coorGaris.length/5);
                 }
                 else if(lines[line] === "kotak"){
-                    console.log("ada kotak");
+                    
                     for (i = 0; i<lines.length; i++){
                         if(lines[i] === "garis"){
                             coorSquare = []; //kalo ketemu garis, kosongin dulu
@@ -49,8 +51,9 @@ loadFile.addEventListener("change", function() {
                         if(lines[i] === "kotak"){
                             break;
                         }
-                        coorSquare = lines[i];
+                        coorSquare.push(parseFloat(lines[i]));
                     }
+                    console.log(coorSquare);
                     makePersegi(coorSquare, coorSquare.length/5);
                 }
                 else if(lines[line] === "polygon"){
@@ -65,17 +68,18 @@ loadFile.addEventListener("change", function() {
                         if(lines[i] === "polygon"){
                             break;
                         }
-                        coorSquare = lines[i];
+                        coorPoly.push(parseFloat(lines[i]));
                     }
                     // console.log(coorPoly);
                     // editMode = 1;
                     // drawMode = 1;
+                    console.log(coorPoly);
                     makePoligon(coorPoly, (coorPoly.length)/5);
                 }
             }
             else{
                 // console.log(lines);
-                console.log("masuk else");
+                // console.log("masuk else");
             }
             // console.log(lines[line]);
         }
