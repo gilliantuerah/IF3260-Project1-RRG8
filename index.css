@@ -49,10 +49,16 @@ nav h5{
     text-align: center;
 }
 .inputShape{
-    padding: 20px;
+    padding: 5px 20px;
 }
 
 .buttonContainer{
-    width: 200px;
-    margin: 25px;
+    margin: 5px 25px;
+}
+.buttonEditContainer{ 
+    margin: 5px 73vw;
+}
+
+.editBtn{
+    width: 96px;
 }

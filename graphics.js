@@ -15,10 +15,18 @@ var identityMatrix = [
     0.0, 0.0, 1.0, 0.0,
     0.0, 0.0, 0.0, 1.0
 ];
+//boolean mode
+var editMode=0; //false
+var drawMode=0; //false
 
 function getMouseCoor(event){
     coorX = event.offsetX;
     coorY = canvas.clientHeight - event.offsetY;
+}
+
+function distanceTwoPoint(x1,y1,x2,y2){
+    var dist = Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+    return dist;
 }
 
 function hexToRgb(hex) {
@@ -31,6 +39,7 @@ function hexToRgb(hex) {
     return result ? hasil : null;
 }
 function clear(){
+    clearPoligon();
     clearGaris();
     clearSquare();
     var element = document.getElementById("yourShape");
@@ -95,169 +104,89 @@ function initWebGL() {
 }
 
 function drawGaris(e){
-    var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
-    getMouseCoor(e);
-    console.log(coorX);
-    console.log(coorY);
-    coorGaris.push(coorX);
-    coorGaris.push(coorY);
-    coorGaris.push(0);
-    coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
-
-    if(coorGaris.length%12==0){
-        idxInitGaris+=1;
-        makeGaris(coorGaris,coorGaris.length/6)
-        //judul
-        var tag = document.createElement("h1");
-        var text = document.createTextNode("Garis ke-"+idxInitGaris);
-        tag.appendChild(text);
-        //form rgb
-        var formRGB = document.createElement("form");
-        formRGB.className="inputFormGarisRGB";
-        //div R
-        var divR = document.createElement("div");
-        divR.className = "form-group col-md-9";
-        var labelR = document.createElement("label");
-        var textR = document.createTextNode("R");
-        labelR.appendChild(textR);
-        var inputR = document.createElement("input");
-        inputR.className="form-control";
-        inputR.id="inputR"+idxInitGaris;
-        inputR.type="text";
-        inputR.placeholder=coorGaris[(idxInitGaris-1)*12+3];
-        var smallR = document.createElement("small");
-        smallR.className="form-text text-muted";
-        var textRSmall = document.createTextNode("Silakan ubah nilai R");
-        smallR.appendChild(textRSmall);
-        divR.appendChild(labelR);
-        divR.appendChild(inputR);
-        divR.appendChild(smallR);
-        formRGB.appendChild(divR);
-        //div G
-        var divG = document.createElement("div");
-        divG.className = "form-group col-md-9";
-        var labelG = document.createElement("label");
-        var textG = document.createTextNode("G");
-        labelG.appendChild(textG);
-        var inputG = document.createElement("input");
-        inputG.className="form-control";
-        inputG.id="inputG"+idxInitGaris;
-        inputG.type="text";
-        inputG.placeholder=coorGaris[(idxInitGaris-1)*12+4];
-        var smallG = document.createElement("small");
-        smallG.className="form-text text-muted";
-        var textGSmall = document.createTextNode("Silakan ubah nilai G");
-        smallG.appendChild(textGSmall);
-        divG.appendChild(labelG);
-        divG.appendChild(inputG);
-        divG.appendChild(smallG);
-        formRGB.appendChild(divG);
-        //div B
-        var divB = document.createElement("div");
-        divB.className = "form-group col-md-9";
-        var labelB = document.createElement("label");
-        var textB = document.createTextNode("B");
-        labelB.appendChild(textB);
-        var inputB = document.createElement("input");
-        inputB.className="form-control";
-        inputB.id="inputB"+idxInitGaris;
-        inputB.type="text";
-        inputB.placeholder=coorGaris[(idxInitGaris-1)*12+5];
-        var smallB = document.createElement("small");
-        smallB.className="form-text text-muted";
-        var textBSmall = document.createTextNode("Silakan ubah nilai B");
-        smallB.appendChild(textBSmall);
-        divB.appendChild(labelB);
-        divB.appendChild(inputB);
-        divB.appendChild(smallB);
-        formRGB.appendChild(divB);
-
-        var tagRGB = document.createElement("p");
-        var textRGB = document.createTextNode("R: "+coorGaris[(idxInitGaris-1)*12+3]+" G: "+coorGaris[(idxInitGaris-1)*12+4]+" B: "+coorGaris[(idxInitGaris-1)*12+5]);
-        tagRGB.appendChild(textRGB);
-
-        var element = document.getElementById("yourShape");
-        element.appendChild(tag);
-        element.appendChild(tagRGB);
-        element.appendChild(formRGB);
-
-        //edit button
-        /*
-        var btnCont = document.createElement("div");
-        btnCont.className="buttonContainer"
-        var editBtn = document.createElement("button");
-        var textEditBtn = document.createTextNode("Change Color");
-        editBtn.type="button";
-        editBtn.className="btn btn-info editBtn";
-        editBtn.id = idxInitGaris;
-        editBtn.appendChild(textEditBtn);
-        btnCont.appendChild(editBtn);
-        element.appendChild(btnCont);
-        */
-        
+    if(drawMode===1){
+        var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+        getMouseCoor(e);
+        console.log(coorX);
+        console.log(coorY);
+        coorGaris.push(coorX);
+        coorGaris.push(coorY);
+        coorGaris.push(0);
+        coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
+    
+        if(coorGaris.length%12==0){
+            idxInitGaris+=1;
+            makeGaris(coorGaris,coorGaris.length/6)
+            
+        }
+        console.log(coorGaris)
+        console.log(shapeColor)
+        console.log(shape)
     }
-    console.log(coorGaris)
-    console.log(shapeColor)
-    console.log(shape)
 }
 
 function drawKotak(e){
-    var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
-    getMouseCoor(e);
-    console.log(coorX);
-    console.log(coorY);
-    coorSquare.push(coorX);
-    coorSquare.push(coorY);
-    coorSquare.push(shapeColor[0],shapeColor[1],shapeColor[2]);
+    if(drawMode===1){
+        var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+        getMouseCoor(e);
+        console.log(coorX);
+        console.log(coorY);
+        coorSquare.push(coorX);
+        coorSquare.push(coorY);
+        coorSquare.push(shapeColor[0],shapeColor[1],shapeColor[2]);
 
-    // Bikin langsung dari size yang udah dimasukin
-    var size = parseInt(document.getElementById("persegiSize").value);
+        // Bikin langsung dari size yang udah dimasukin
+        var size = parseInt(document.getElementById("persegiSize").value);
 
-    coorSquare.push(coorX + size, coorY, shapeColor[0],shapeColor[1],shapeColor[2])
-    coorSquare.push(coorX + size, coorY + size, shapeColor[0],shapeColor[1],shapeColor[2])
-    coorSquare.push(coorX, coorY + size, shapeColor[0],shapeColor[1],shapeColor[2])
-    console.log(coorSquare);
+        coorSquare.push(coorX + size, coorY, shapeColor[0],shapeColor[1],shapeColor[2])
+        coorSquare.push(coorX + size, coorY + size, shapeColor[0],shapeColor[1],shapeColor[2])
+        coorSquare.push(coorX, coorY + size, shapeColor[0],shapeColor[1],shapeColor[2])
+        console.log(coorSquare);
 
-    if(coorSquare.length%20==0){
-        makePersegi(coorSquare,coorSquare.length/5)
-        coorSquare = [];
-        document.getElementById("persegiEnlarge").style.display = "block";
+        if(coorSquare.length%20==0){
+            makePersegi(coorSquare,coorSquare.length/5)
+            coorSquare = [];
+            document.getElementById("persegiEnlarge").style.display = "block";
+        }
+        console.log(coorSquare)
+        console.log(shapeColor)
+        console.log(shape)
     }
-    console.log(coorSquare)
-    console.log(shapeColor)
-    console.log(shape)
+    
 }
 
 function drawPoligon(e){
-    var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
-    getMouseCoor(e);
-    console.log(coorX);
-    console.log(coorY);
-    coorPoly.push(coorX);
-    coorPoly.push(coorY);
-    coorPoly.push(shapeColor[0],shapeColor[1],shapeColor[2]); //RGB
+    if(drawMode===1){
+        var shapeColor = hexToRgb(document.getElementById("shpaeColor").value);
+        getMouseCoor(e);
+        console.log(coorX);
+        console.log(coorY);
+        coorPoly.push(coorX);
+        coorPoly.push(coorY);
+        coorPoly.push(shapeColor[0],shapeColor[1],shapeColor[2]); //RGB
 
-    //Jangan dipanggil ketika baru dapat dua titik
-    //Setelah titik ketiga, shape harus selalu diupdate dan draw dibuat ulang dengan array yang sama
-    if((coorPoly.length > 10) && (coorSquare.length%5==0)){
-        makePoligon(coorPoly,(coorPoly.length)/5);
+        //Jangan dipanggil ketika baru dapat dua titik
+        //Setelah titik ketiga, shape harus selalu diupdate dan draw dibuat ulang dengan array yang sama
+        if((coorPoly.length > 10) && (coorPoly.length%5==0)){
+            makePoligon(coorPoly,(coorPoly.length)/5);
+        }
+        console.log(coorPoly)
+        console.log(shapeColor)
+        console.log(shape)
     }
-    console.log(coorPoly)
-    console.log(shapeColor)
 }
 
 var drawBtn = document.getElementById("drawBtn");
+// draw mode
 drawBtn.addEventListener("click", function(){
+    drawMode=1;
+    editMode=0;
+    
+    clear()
     var shape = document.getElementById("shapeOption").value;
     console.log(shape)
     if(shape==="garis"){
         canvas.addEventListener("click", drawGaris); //Dipisah biar bisa diremove pas clear
-
-        for (var i=0; i<idxInitGaris; i++){
-            //red
-            //green
-            //blue
-        }
     }
 
     if(shape==="kotak"){
@@ -268,6 +197,60 @@ drawBtn.addEventListener("click", function(){
         canvas.addEventListener("click", drawPoligon);
     }    
 });
+
+// editMode
+editBtn.addEventListener("click", function(){
+    editMode=1;
+    drawMode=0;
+    var idxEdit=0;
+    var editCoordIdx=-1;
+    var minDist=5;
+       
+    var shape = document.getElementById("shapeOption").value;
+    console.log(shape)
+    if(shape==="garis"){
+        canvas.addEventListener("click", function(e){
+            if(editMode===1){ 
+                getMouseCoor(e);
+                idxEdit++;
+            
+                //if idxEdit ganjil -> pilih titik dari coorGaris yg mau diedit
+                if(idxEdit%2==1){
+                    for(var j=0;j<coorGaris.length;j+=6){
+                        error=distanceTwoPoint(coorX,coorY,coorGaris[j],coorGaris[j+1])
+                        // console.log(coorX+", "+coorY)
+                        // console.log(coorGaris[j]+", "+coorGaris[j+1])
+                        // console.log(error);
+                        //galat = 3.0
+                        if(error<3.0){
+                            if(error<minDist){
+                                minDist=error;
+                                //simpen current position to edit
+                                editCoordIdx = j;
+                            }
+                        }
+                    }
+                }else{ //if idxEdit genap -> pilih titik'
+                    if(editCoordIdx===-1){
+                        //titik yang dipilih tidak masuk range
+                        console.log("Tidak ada titik yang memenuhi")
+                    }else{
+                        //ganti koordinat
+                        coorGaris[editCoordIdx]=coorX;
+                        coorGaris[editCoordIdx+1]=coorY;
+                        //gambar ulang garis
+                        makeGaris(coorGaris,coorGaris.length/6)
+                    }
+                    editCoordIdx=-1;
+                    minDist=5;
+                }
+                
+            }
+        
+        })
+    }
+    
+})
 
 window.onload = initWebGL();
 
