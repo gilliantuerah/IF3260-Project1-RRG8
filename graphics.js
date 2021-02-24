@@ -43,6 +43,7 @@ function clear(){
     clearPoligon();
     clearGaris();
     clearSquare();
+    document.getElementById("persegiEnlarge").style.display = "none";
     var element = document.getElementById("yourShape");
     while (element.firstChild) {
         element.firstChild.remove()
@@ -52,9 +53,7 @@ function clear(){
 function initWebGL() {
     clear();
     canvas = document.getElementById('game-surface');
-    canvas.removeEventListener("click", drawGaris);
-    canvas.removeEventListener("click", drawKotak);
-    canvas.removeEventListener("click", drawPoligon);
+    canvas.removeEventListener("click", drawShape);
     squareCount = 0;
     document.getElementById("persegiForm").style.display = "none";
     document.getElementById("persegiEnlarge").style.display = "none";
@@ -120,9 +119,6 @@ function drawGaris(e){
             makeGaris(coorGaris,coorGaris.length/6)
             
         }
-        console.log(coorGaris)
-        console.log(shapeColor)
-        console.log(shape)
     }
 }
 
@@ -149,8 +145,6 @@ function drawKotak(e){
             document.getElementById("persegiEnlarge").style.display = "block";
             squareCount++;
         }
-        console.log(coorSquare)
-        console.log(shapeColor)
     }
     
 }
@@ -170,22 +164,23 @@ function drawPoligon(e){
         if((coorPoly.length > 10) && (coorPoly.length%5==0)){
             makePoligon(coorPoly,(coorPoly.length)/5);
         }
-        console.log(coorPoly)
-        console.log(shapeColor)
-        console.log(shape)
     }
 }
 
 function drawShape(e,shape){
+    console.log(shape)
     if(shape==="garis"){
+        console.log("masuk garis")
         drawGaris(e); //Dipisah biar bisa diremove pas clear
     }
 
     if(shape==="kotak"){
+        console.log("masuk kotak")
         drawKotak(e);
     }
 
     if(shape==="polygon"){
+        console.log("masuk pol")
         drawPoligon(e);
     } 
 }
@@ -195,21 +190,15 @@ var drawBtn = document.getElementById("drawBtn");
 drawBtn.addEventListener("click", function(){
     drawMode=1;
     editMode=0;
-    
+
+    var ptagDraw = document.getElementById("canvasMode");
+    ptagDraw.innerHTML = "Draw Mode"
+  
+
     clear()
     var shape = document.getElementById("shapeOption").value;
     console.log(shape)
-    // if(shape==="garis"){
-    //     canvas.addEventListener("click", drawGaris); //Dipisah biar bisa diremove pas clear
-    // }
 
-    // if(shape==="kotak"){
-    //     canvas.addEventListener("click", drawKotak);
-    // }
-
-    // if(shape==="polygon"){
-    //     canvas.addEventListener("click", drawPoligon);
-    // }   
     canvas.addEventListener("click", e=>drawShape(e,shape)); 
 });
 
@@ -220,50 +209,50 @@ editBtn.addEventListener("click", function(){
     var idxEdit=0;
     var editCoordIdx=-1;
     var minDist=5;
-       
+    
+    var ptag = document.getElementById("canvasMode");
+    ptag.innerHTML = "Edit Mode"
+
     var shape = document.getElementById("shapeOption").value;
     console.log(shape)
-    if(shape==="garis"){
-        canvas.addEventListener("click", function(e){
-            if(editMode===1){ 
-                getMouseCoor(e);
-                idxEdit++;
-            
-                //if idxEdit ganjil -> pilih titik dari coorGaris yg mau diedit
-                if(idxEdit%2==1){
-                    for(var j=0;j<coorGaris.length;j+=6){
-                        error=distanceTwoPoint(coorX,coorY,coorGaris[j],coorGaris[j+1])
-                        // console.log(coorX+", "+coorY)
-                        // console.log(coorGaris[j]+", "+coorGaris[j+1])
-                        // console.log(error);
-                        //galat = 3.0
-                        if(error<3.0){
-                            if(error<minDist){
-                                minDist=error;
-                                //simpen current position to edit
-                                editCoordIdx = j;
-                            }
+  
+    canvas.addEventListener("click", function(e){
+        if(editMode===1 && shape==="garis"){ 
+            getMouseCoor(e);
+            idxEdit++;
+        
+            //if idxEdit ganjil -> pilih titik dari coorGaris yg mau diedit
+            if(idxEdit%2==1){
+                for(var j=0;j<coorGaris.length;j+=6){
+                    error=distanceTwoPoint(coorX,coorY,coorGaris[j],coorGaris[j+1])
+                    //galat = 3.0
+                    if(error<3.0){
+                        if(error<minDist){
+                            minDist=error;
+                            //simpen current position to edit
+                            editCoordIdx = j;
                         }
                     }
-                }else{ //if idxEdit genap -> pilih titik'
-                    if(editCoordIdx===-1){
-                        //titik yang dipilih tidak masuk range
-                        console.log("Tidak ada titik yang memenuhi")
-                    }else{
-                        //ganti koordinat
-                        coorGaris[editCoordIdx]=coorX;
-                        coorGaris[editCoordIdx+1]=coorY;
-                        //gambar ulang garis
-                        makeGaris(coorGaris,coorGaris.length/6)
-                    }
-                    editCoordIdx=-1;
-                    minDist=5;
                 }
-                
+            }else{ //if idxEdit genap -> pilih titik'
+                if(editCoordIdx===-1){
+                    //titik yang dipilih tidak masuk range
+                    console.log("Tidak ada titik yang memenuhi")
+                }else{
+                    //ganti koordinat
+                    coorGaris[editCoordIdx]=coorX;
+                    coorGaris[editCoordIdx+1]=coorY;
+                    //gambar ulang garis
+                    makeGaris(coorGaris,coorGaris.length/6)
+                }
+                editCoordIdx=-1;
+                minDist=5;
             }
-        
-        })
-    }
+            
+        }
+    
+    })
+    
     
 })
 
@@ -279,6 +268,7 @@ shapeOption.addEventListener("change", () => {
         document.getElementById("persegiForm").style.display = "block";
     } else {
         document.getElementById("persegiForm").style.display = "none";
+        
     }
 });
 
