@@ -1,6 +1,3 @@
-var coorX = 0;
-var coorY = 0;
-
 function clearGaris(){
     if(coorGaris.length!==0){
         coorGaris=[];
@@ -22,7 +19,7 @@ function makeGaris(garisVertices, numberOfLine){
     var transform = gl.getUniformLocation(program, "transformMat");
     var res = gl.getUniformLocation(program, "resolution");
     // Point an attribute to the currently bound VBO
-    gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 6 * Float32Array.BYTES_PER_ELEMENT, 0); // Ada ininya kayak segitiga biar bisa ganti warna?
+    gl.vertexAttribPointer(coord, 2, gl.FLOAT, false, 5 * Float32Array.BYTES_PER_ELEMENT, 0); // Ada ininya kayak segitiga biar bisa ganti warna?
     gl.vertexAttribPointer(
         //attr location
         colorAttributeLocation,
@@ -33,9 +30,9 @@ function makeGaris(garisVertices, numberOfLine){
         //is the data normalized
         false,
         //size of an individual vertex
-        6 * Float32Array.BYTES_PER_ELEMENT,
+        5 * Float32Array.BYTES_PER_ELEMENT,
         //0ffset from the beginning of a single vertex to this attribute
-        3 * Float32Array.BYTES_PER_ELEMENT //skip X and Y
+        2 * Float32Array.BYTES_PER_ELEMENT //skip X and Y
     );
     gl.uniformMatrix4fv(transform, false, new Float32Array(identityMatrix));
     gl.uniform2fv(res, [canvas.clientWidth, canvas.clientHeight]);

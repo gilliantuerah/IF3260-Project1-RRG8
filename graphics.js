@@ -111,12 +111,11 @@ function drawGaris(e){
         console.log(coorY);
         coorGaris.push(coorX);
         coorGaris.push(coorY);
-        coorGaris.push(0);
         coorGaris.push(shapeColor[0],shapeColor[1],shapeColor[2]);
-    
-        if(coorGaris.length%12==0){
+        console.log(coorGaris);
+        if(coorGaris.length%10==0){
             idxInitGaris+=1;
-            makeGaris(coorGaris,coorGaris.length/6)
+            makeGaris(coorGaris,coorGaris.length/5)
             
         }
     }
@@ -223,7 +222,7 @@ editBtn.addEventListener("click", function(){
         
             //if idxEdit ganjil -> pilih titik dari coorGaris yg mau diedit
             if(idxEdit%2==1){
-                for(var j=0;j<coorGaris.length;j+=6){
+                for(var j=0;j<coorGaris.length;j+=5){
                     error=distanceTwoPoint(coorX,coorY,coorGaris[j],coorGaris[j+1])
                     //galat = 3.0
                     if(error<3.0){
@@ -243,7 +242,7 @@ editBtn.addEventListener("click", function(){
                     coorGaris[editCoordIdx]=coorX;
                     coorGaris[editCoordIdx+1]=coorY;
                     //gambar ulang garis
-                    makeGaris(coorGaris,coorGaris.length/6)
+                    makeGaris(coorGaris,coorGaris.length/5)
                 }
                 editCoordIdx=-1;
                 minDist=5;
