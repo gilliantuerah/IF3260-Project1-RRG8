@@ -163,6 +163,7 @@ function drawPoligon(e){
         if((coorPoly.length > 10) && (coorPoly.length%5==0)){
             makePoligon(coorPoly,(coorPoly.length)/5);
         }
+        console.log(coorPoly);
     }
 }
 
