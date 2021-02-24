@@ -157,7 +157,7 @@ function drawPoligon(e){
         coorPoly.push(coorX);
         coorPoly.push(coorY);
         coorPoly.push(shapeColor[0],shapeColor[1],shapeColor[2]); //RGB
-
+        console.log(coorPoly);
         //Jangan dipanggil ketika baru dapat dua titik
         //Setelah titik ketiga, shape harus selalu diupdate dan draw dibuat ulang dengan array yang sama
         if((coorPoly.length > 10) && (coorPoly.length%5==0)){

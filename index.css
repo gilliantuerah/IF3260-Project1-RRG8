@@ -24,13 +24,16 @@ nav a.hover{
     color: #475CFD;
 }
 
-nav h5{
-    font-weight: bold;
-
-}
 
 .isiWeb{
     padding-top: 100px;
+}
+
+.isiHelp{
+    margin: 0px 100px;
+    padding: 100px 0px;
+    display: grid;
+    gap:20px;
 }
 
 .inputFormGaris{
@@ -65,4 +68,16 @@ nav h5{
 
 .canvasMode{
     text-align: center;
+}
+
+.isiHelp p{
+    font-size: 18px;
+}
+
+.isiHelp li{
+    font-size: 12px;
+}
+
+.isiHelp>div>div{
+    font-size: 20px;
 }
